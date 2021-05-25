@@ -188,7 +188,7 @@ FIVE_LINE = Piece(np.array(
     dtype=np.uint8
 ))
 
-ALL_PIECES = [
+EGO_PIECES = [
     LONG_L,
     LANKY_L,
     SMALL_T,
@@ -212,14 +212,16 @@ ALL_PIECES = [
     FIVE_LINE
 ]
 
-for pieces in ALL_PIECES:
+VIL_PIECES = EGO_PIECES.copy()
+
+for pieces in EGO_PIECES:
     pieces.set_color(255)
 
-# TESTING GROUND
+for pieces in VIL_PIECES:
+    pieces.set_color(125)
 
-X=np.flip(HALBERD.shape, 0)
-Y=np.flip(X, 0)
-img = cv2.resize(Y, (300,300))
-cv2.imshow("test", img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# TESTING GROUND
+# img = cv2.resize(WAVE.shape, (300,300))
+# cv2.imshow("test", img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
