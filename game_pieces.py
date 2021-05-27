@@ -7,10 +7,12 @@ class Piece():
     The Fundamenal Game Object
     '''
 
-    def __init__(self, shape):
+    def __init__(self, shape, flip_sym=False, rot_sym=False):
         self.initial_shape = shape
         self.shape = shape
         self.grid_x, self.grid_y = 0, 0
+        self.flip_sym = flip_sym
+        self.rot_sym = rot_sym
 
     def height(self):
         return len(self.shape)
@@ -44,12 +46,14 @@ class Piece():
         self.shape = np.flip(self.shape)
 
 
+# 4 ways
 LONG_L = Piece(np.array(
     [[1, 1, 1],
      [1, 0, 0],
      [1, 0, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 LANKY_L = Piece(np.array(
     [[1, 1, 1, 1],
@@ -60,8 +64,9 @@ LANKY_L = Piece(np.array(
 SMALL_T = Piece(np.array(
     [[0, 1, 0],
      [1, 1, 1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 BACKPACK_L = Piece(np.array(
     [[0, 1, 0],
@@ -80,15 +85,18 @@ THUMB = Piece(np.array(
 SQUARE = Piece(np.array(
     [[1, 1],
      [1, 1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True,
+    rot_sym=True
+)
 
 THREE_LINE = Piece(np.array(
     [[1],
      [1],
      [1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 HALBERD = Piece(np.array(
     [[0, 1],
@@ -102,36 +110,42 @@ PLUS = Piece(np.array(
     [[0, 1, 0],
      [1, 1, 1],
      [0, 1, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True,
+    rot_sym=True
+)
 
 TWO_LINE = Piece(np.array(
     [[1],
      [1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 FOUR_LINE = Piece(np.array(
     [[1],
      [1],
      [1],
      [1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 T = Piece(np.array(
     [[1, 0, 0],
      [1, 1, 1],
      [1, 0, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 WAVE = Piece(np.array(
     [[1, 0, 0],
      [1, 1, 0],
      [0, 1, 1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 L = Piece(np.array(
     [[1, 1],
@@ -142,14 +156,17 @@ L = Piece(np.array(
 
 O = Piece(np.array(
     [[1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True,
+    rot_sym=True
+)
 
 ELBOW = Piece(np.array(
     [[1, 1],
      [1, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 SNAKE = Piece(np.array(
     [[0, 1],
@@ -176,8 +193,9 @@ S = Piece(np.array(
 U = Piece(np.array(
     [[1, 0, 1],
      [1, 1, 1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 FIVE_LINE = Piece(np.array(
     [[1],
@@ -185,8 +203,9 @@ FIVE_LINE = Piece(np.array(
      [1],
      [1],
      [1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    flip_sym=True
+)
 
 EGO_PIECES = [
     LONG_L,
@@ -219,6 +238,7 @@ for pieces in EGO_PIECES:
 
 for pieces in VIL_PIECES:
     pieces.set_color(125)
+
 
 # TESTING GROUND
 # img = cv2.resize(WAVE.shape, (300,300))
