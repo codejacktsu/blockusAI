@@ -10,7 +10,6 @@ class Piece():
     def __init__(self, shape, flip_sym=False, rot_sym=False):
         self.initial_shape = shape
         self.shape = shape
-        self.grid_x, self.grid_y = 0, 0
         self.flip_sym = flip_sym
         self.rot_sym = rot_sym
         self.moves = {}
@@ -20,14 +19,6 @@ class Piece():
 
     def width(self):
         return len(self.shape[0])
-
-    # Horizontal board position to terminal coordinate transformation
-    def grid_to_xpos(self):
-        return 2*self.grid_x + self.board_left
-
-    # Vertical board position to terminal coordinate transformation
-    def grid_to_ypos(self):
-        return self.grid_y + self.board_top
 
     def reset_shape(self):
         self.shape = [row[:] for row in self.initial_shape]
