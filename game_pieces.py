@@ -13,6 +13,7 @@ class Piece():
         self.grid_x, self.grid_y = 0, 0
         self.flip_sym = flip_sym
         self.rot_sym = rot_sym
+        self.moves = {}
 
     def height(self):
         return len(self.shape)
@@ -44,6 +45,9 @@ class Piece():
 
     def flip(self):
         self.shape = np.flip(self.shape)
+
+    def gen_moves(self):
+        pass
 
 
 # 4 ways
