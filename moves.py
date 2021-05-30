@@ -39,14 +39,14 @@ def gen_moves_full(pieces):
         for x in range(14-piece.width()+1):
             for y in range(14-piece.height()+1):
                 move_count += 1
-                move_list_full[move_count] = (idx, piece.shape, (x,y))
+                move_list_full[move_count] = (idx, piece.shape, (y, x), piece.gen_coord((y, x)))
         if not piece.rot_sym:
             for _ in range(3):
                 piece.rotate()
                 for x in range(14 - piece.width() + 1):
                     for y in range(14 - piece.height() + 1):
                         move_count += 1
-                        move_list_full[move_count] = (idx, piece.shape, (x, y))
+                        move_list_full[move_count] = (idx, piece.shape, (y, x), piece.gen_coord((y, x)))
         if not piece.flip_sym:
             piece.flip()
             for _ in range(4):
@@ -54,7 +54,7 @@ def gen_moves_full(pieces):
                 for x in range(14 - piece.width() + 1):
                     for y in range(14 - piece.height() + 1):
                         move_count += 1
-                        move_list_full[move_count] = (idx, piece.shape, (x, y))
+                        move_list_full[move_count] = (idx, piece.shape, (y, x), piece.gen_coord((y, x)))
     return move_list_full
 
 

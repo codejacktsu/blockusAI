@@ -33,10 +33,22 @@ class Piece():
         :param color: ego - 255, vil - 125
         """
         self.initial_shape *= color
-        # self.shape *= color
 
     def flip(self):
         self.shape = np.flip(self.shape)
+
+    def gen_coord(self, head):
+        """
+        generate board coord with blocks
+        :param head: head block (y, x)
+        :return: list coord
+        """
+        coord = []
+        for x in range(self.width()):
+            for y in range(self.height()):
+                if self.shape[y][x] >= 125:
+                    coord.append((y + head[0], x + head[1]))
+        return coord
 
     def gen_moves(self):
         pass
