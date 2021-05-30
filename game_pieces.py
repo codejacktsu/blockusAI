@@ -12,6 +12,7 @@ class Piece():
         self.shape = shape
         self.flip_sym = flip_sym
         self.rot_sym = rot_sym
+        self.available = True
         self.moves = {}
 
     def height(self):
