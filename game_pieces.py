@@ -32,8 +32,8 @@ class Piece():
         set pieces color
         :param color: ego - 255, vil - 125
         """
-        self.initial_shape = self.initial_shape*color
-        self.shape = self.shape*color
+        self.initial_shape *= color
+        # self.shape *= color
 
     def flip(self):
         self.shape = np.flip(self.shape)
@@ -229,11 +229,11 @@ EGO_PIECES = [
 
 VIL_PIECES = EGO_PIECES.copy()
 
-for pieces in EGO_PIECES:
-    pieces.set_color(255)
+for piece in EGO_PIECES:
+    piece.set_color(225)
 
-for pieces in VIL_PIECES:
-    pieces.set_color(125)
+for piece in VIL_PIECES:
+    piece.set_color(100)
 
 
 # TESTING GROUND
