@@ -35,7 +35,7 @@ class Piece():
         self.initial_shape *= color
 
     def flip(self):
-        self.shape = np.flip(self.shape)
+        self.shape = np.flip(self.shape, 0)
 
     def gen_coord(self, head):
         """
