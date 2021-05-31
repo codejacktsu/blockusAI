@@ -7,7 +7,7 @@ class Piece():
     The Fundamenal Game Object
     '''
 
-    def __init__(self, shape, flip_sym=False, rot_sym=False):
+    def __init__(self, shape, flip_sym=False, rot_sym=4):
         self.initial_shape = shape
         self.shape = shape
         self.flip_sym = flip_sym
@@ -95,7 +95,7 @@ SQUARE = Piece(np.array(
      [1, 1]],
     dtype=np.uint8),
     flip_sym=True,
-    rot_sym=True
+    rot_sym=1
 )
 
 THREE_LINE = Piece(np.array(
@@ -103,7 +103,8 @@ THREE_LINE = Piece(np.array(
      [1],
      [1]],
     dtype=np.uint8),
-    flip_sym=True
+    flip_sym=True,
+    rot_sym=2
 )
 
 HALBERD = Piece(np.array(
@@ -120,14 +121,15 @@ PLUS = Piece(np.array(
      [0, 1, 0]],
     dtype=np.uint8),
     flip_sym=True,
-    rot_sym=True
+    rot_sym=1
 )
 
 TWO_LINE = Piece(np.array(
     [[1],
      [1]],
     dtype=np.uint8),
-    flip_sym=True
+    flip_sym=True,
+    rot_sym=2
 )
 
 FOUR_LINE = Piece(np.array(
@@ -136,7 +138,8 @@ FOUR_LINE = Piece(np.array(
      [1],
      [1]],
     dtype=np.uint8),
-    flip_sym=True
+    flip_sym=True,
+    rot_sym=2
 )
 
 T = Piece(np.array(
@@ -166,7 +169,7 @@ O = Piece(np.array(
     [[1]],
     dtype=np.uint8),
     flip_sym=True,
-    rot_sym=True
+    rot_sym=1
 )
 
 ELBOW = Piece(np.array(
@@ -188,15 +191,17 @@ Z = Piece(np.array(
     [[0, 1],
      [1, 1],
      [1, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    rot_sym=2
+)
 
 S = Piece(np.array(
     [[0, 1, 1],
      [0, 1, 0],
      [1, 1, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    rot_sym=2
+)
 
 U = Piece(np.array(
     [[1, 0, 1],
@@ -212,7 +217,8 @@ FIVE_LINE = Piece(np.array(
      [1],
      [1]],
     dtype=np.uint8),
-    flip_sym=True
+    flip_sym=True,
+    rot_sym=2
 )
 
 EGO_PIECES = [
