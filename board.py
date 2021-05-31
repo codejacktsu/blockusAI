@@ -1,0 +1,13 @@
+import numpy as np
+
+
+class Board():
+    def __init__(self, size):
+        self.board = np.zeros((size,size))
+        self.blocks_coords = []
+
+
+# testing ground
+# game = Board(14)
+#
+# print(game.board)
