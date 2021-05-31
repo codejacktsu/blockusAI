@@ -58,6 +58,54 @@ def gen_moves_full(pieces):
     return move_list_full
 
 
+def check_pieces(piece_idx, pieces):
+    """
+    Check move eligibility: if piece is available to play
+    :param piece_idx: int
+    :param pieces: list
+    :return: bool True: eligible, False: ineligible
+    """
+    return pieces[piece_idx].available
+
+
+def check_require(move_coord, req_list):
+    """
+    Check move eligibility: if move candidate on diagonal (required)
+    :param move_coord: list
+    :param diag_list: list
+    :return: bool - True: eligible, False: ineligible
+    """
+    return bool(set(move_coord) & set(req_list))
+
+
+def check_restrict(move_coord, restrict_list):
+    """
+    Check move eligibility: if move candidate not on edge (restrict) or existing blocks (restrict)
+    :param move_coord: list
+    :param edge_list: list
+    :return: bool - True: eligible, False: ineligible
+    """
+    return not bool(set(move_coord) & set(restrict_list))
+
+
+def gen_adm_moves(player_moves_full, player_pieces, diag, edge, exist_blocks):
+    """
+    Generate admissible moves by player
+    :param player_moves_full: dict
+    :param player_pieces: list
+    :param diag: list
+    :param edge: list
+    :param exist_blocks: list
+    :return: int list of move_idx
+    """
+    adm_moves = []
+    for idx in range(1, len(player_moves_full)+1):
+        move = player_moves_full[idx]
+        if check_pieces(move[0], player_pieces) and check_require(move[3], diag) and check_restrict(move[3], edge) and check_restrict(move[3], exist_blocks):
+            adm_moves.append(idx)
+    return adm_moves
+
+
 # move = piece, rotate, orient, coord
 ego_moves_full = gen_moves_full(EGO_PIECES)
 
