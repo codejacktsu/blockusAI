@@ -7,12 +7,13 @@ class Piece():
     The Fundamenal Game Object
     '''
 
-    def __init__(self, shape, flip_sym=False, rot_sym=4):
+    def __init__(self, shape, points, flip_sym=False, rot_sym=4):
         self.initial_shape = shape
         self.shape = shape
         self.flip_sym = flip_sym
         self.rot_sym = rot_sym
         self.available = True
+        self.points = points
         self.moves = {}
 
     def height(self):
@@ -60,19 +61,22 @@ LONG_L = Piece(np.array(
      [1, 0, 0],
      [1, 0, 0]],
     dtype=np.uint8),
+    5,
     flip_sym=True
 )
 
 LANKY_L = Piece(np.array(
     [[1, 1, 1, 1],
      [1, 0, 0, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    5
+)
 
 SMALL_T = Piece(np.array(
     [[0, 1, 0],
      [1, 1, 1]],
     dtype=np.uint8),
+    4,
     flip_sym=True
 )
 
@@ -80,20 +84,23 @@ BACKPACK_L = Piece(np.array(
     [[0, 1, 0],
      [1, 1, 1],
      [1, 0, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    5
+)
 
 THUMB = Piece(np.array(
     [[1, 1],
      [1, 1],
      [0, 1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    5
+)
 
 SQUARE = Piece(np.array(
     [[1, 1],
      [1, 1]],
     dtype=np.uint8),
+    4,
     flip_sym=True,
     rot_sym=1
 )
@@ -103,6 +110,7 @@ THREE_LINE = Piece(np.array(
      [1],
      [1]],
     dtype=np.uint8),
+    3,
     flip_sym=True,
     rot_sym=2
 )
@@ -112,14 +120,16 @@ HALBERD = Piece(np.array(
      [1, 1],
      [0, 1],
      [0, 1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    5
+)
 
 PLUS = Piece(np.array(
     [[0, 1, 0],
      [1, 1, 1],
      [0, 1, 0]],
     dtype=np.uint8),
+    5,
     flip_sym=True,
     rot_sym=1
 )
@@ -128,6 +138,7 @@ TWO_LINE = Piece(np.array(
     [[1],
      [1]],
     dtype=np.uint8),
+    2,
     flip_sym=True,
     rot_sym=2
 )
@@ -138,6 +149,7 @@ FOUR_LINE = Piece(np.array(
      [1],
      [1]],
     dtype=np.uint8),
+    4,
     flip_sym=True,
     rot_sym=2
 )
@@ -147,6 +159,7 @@ T = Piece(np.array(
      [1, 1, 1],
      [1, 0, 0]],
     dtype=np.uint8),
+    5,
     flip_sym=True
 )
 
@@ -155,6 +168,7 @@ WAVE = Piece(np.array(
      [1, 1, 0],
      [0, 1, 1]],
     dtype=np.uint8),
+    5,
     flip_sym=True
 )
 
@@ -162,12 +176,14 @@ L = Piece(np.array(
     [[1, 1],
      [0, 1],
      [0, 1]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    4
+)
 
 O = Piece(np.array(
     [[1]],
     dtype=np.uint8),
+    1,
     flip_sym=True,
     rot_sym=1
 )
@@ -176,6 +192,7 @@ ELBOW = Piece(np.array(
     [[1, 1],
      [1, 0]],
     dtype=np.uint8),
+    3,
     flip_sym=True
 )
 
@@ -184,14 +201,16 @@ SNAKE = Piece(np.array(
      [1, 1],
      [1, 0],
      [1, 0]],
-    dtype=np.uint8
-))
+    dtype=np.uint8),
+    5
+)
 
 Z = Piece(np.array(
     [[0, 1],
      [1, 1],
      [1, 0]],
     dtype=np.uint8),
+    4,
     rot_sym=2
 )
 
@@ -200,6 +219,7 @@ S = Piece(np.array(
      [0, 1, 0],
      [1, 1, 0]],
     dtype=np.uint8),
+    5,
     rot_sym=2
 )
 
@@ -207,6 +227,7 @@ U = Piece(np.array(
     [[1, 0, 1],
      [1, 1, 1]],
     dtype=np.uint8),
+    5,
     flip_sym=True
 )
 
@@ -217,6 +238,7 @@ FIVE_LINE = Piece(np.array(
      [1],
      [1]],
     dtype=np.uint8),
+    5,
     flip_sym=True,
     rot_sym=2
 )
