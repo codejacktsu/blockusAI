@@ -12,13 +12,19 @@ class Board():
     Environment
     """
     def __init__(self, size):
-        self.board = np.zeros((size,size))
+        self.size = size
+        self.board = np.zeros((self.size,self.size))
         self.blocks_coords = set()
         self.done = [False, False]
 
     def display(self):
         board_img = Image.fromarray(self.board)
         board_img.show()
+
+    def reset(self):
+        self.board = np.zeros((self.size,self.size))
+        self.blocks_coords = set()
+        self.done = [False, False]
 
 
 class Agent():
@@ -101,6 +107,5 @@ def run_a_game():
 # game = Board(14)
 # p1 = Agent(EGO_PIECES, 0)
 # p2 = Agent(VIL_PIECES, 1)
-
 
 # run_a_game()
