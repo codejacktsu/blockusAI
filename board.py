@@ -1,5 +1,6 @@
 import numpy as np
 from PIL import Image
+from copy import deepcopy
 from game_pieces import EGO_PIECES, VIL_PIECES
 from moves import gen_moves_full, gen_adm_moves
 
@@ -24,7 +25,7 @@ class Agent():
     """
     def __init__(self, pieces, player_idx):
         self.player_idx = player_idx
-        self.pieces = pieces
+        self.pieces = deepcopy(pieces)
         self.full_moves = gen_moves_full(self.pieces)
         self.diag = {(13,13)} if player_idx else {(0,0)}
         self.edge = set()
@@ -42,7 +43,7 @@ class Agent():
             move = self.full_moves[move_idx]
         else:
             board.done[self.player_idx] = True
-            self.gen_reward(board)
+            self.gen_reward()
             return None
 
         # remove from available pieces
@@ -59,7 +60,7 @@ class Agent():
         # gen reward
         print(f'{self.player_idx}: {len(adm_moves)}')
 
-    def gen_reward(self, board):
+    def gen_reward(self):
         points = 100 # 89 total
         for piece in self.pieces:
             if piece.available:
@@ -74,12 +75,13 @@ game = Board(14)
 p1 = Agent(EGO_PIECES, 0)
 p2 = Agent(VIL_PIECES, 1)
 
-for i in range(15):
+for i in range(20):
     if game.done[0] and game.done[1]:
         print(f'End!')
-        print(f'P1 Score: {p1.reward} | P2 Score: {p2.reward}')
+        print(f'P1 Score: {p1.reward} | P2 Score: {p2.reward} in {i} turns')
+        game.display()
         break
     print(f'Move {i}:')
     p1.move(game)
     p2.move(game)
-    game.display()
+
