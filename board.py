@@ -76,6 +76,15 @@ class Agent():
         self.reward = points
         return self.reward
 
+    def reset(self):
+        self.diag = {(13,13)} if self.player_idx else {(0,0)}
+        self.edge = set()
+        self.color = 225 if self.player_idx else 100
+        self.reward = 0
+        self.done = False
+        for piece in self.pieces:
+            piece.available = True
+
 
 def run_a_game():
     """
