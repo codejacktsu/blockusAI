@@ -41,7 +41,19 @@ class Agent():
         self.reward = 0 # 89 total points, special rule +15 for all/ +5 for playing 1x1 last
         self.done = False
 
+    def gen_best_action(self):
+        """
+        generate best action based on algo
+        :return:
+        """
+        pass
+
     def move(self, board):
+        """
+        making move on board
+        :param board:
+        :return:
+        """
         if board.done[self.player_idx]:
             return None
         adm_moves = gen_adm_moves(self.full_moves, self.pieces, self.diag, self.edge, board.blocks_coords)

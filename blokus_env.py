@@ -3,6 +3,8 @@ import numpy as np
 from board import Board, Agent
 from game_pieces import EGO_PIECES, VIL_PIECES
 
+from stable_baselines.common.env_checker import check_env
+
 
 # 14x14 196 squares
 # 21x2 42 pieces
@@ -56,4 +58,5 @@ class BlokusEnv(gym.Env):
 #testing ground
 env = BlokusEnv()
 
-print(env.action_space)
+check_env(env, warn=True)
+# print(env.action_space)
