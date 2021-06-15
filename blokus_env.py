@@ -15,7 +15,7 @@ class BlokusEnv(gym.Env):
 
     def __init__(self):
         # board obervation
-        self.observation_space = gym.spaces.Box(low=0, high=255, shape=(14,14,1), dtype=np.uint8)
+        self.observation_space = gym.spaces.Box(low=0, high=255, shape=(14,14), dtype=np.uint8)
 
         # available actions: 13729 possible moves
         self.action_space = gym.spaces.Discrete(13729)
@@ -27,11 +27,18 @@ class BlokusEnv(gym.Env):
         self.p1 = Agent(EGO_PIECES, 0)
         self.p2 = Agent(VIL_PIECES, 1)
 
-        # random whon starts
+        # random who starts
         self.starting_player_idx = np.random.randint(0, 1)
 
-    def step(self, agent):
-        agent.move(self.state)
+    def step(self, action):
+        if self.starting_player_idx:
+            agent = self.p2
+        else:
+            agent = self.p1
+        # other player's turn next
+        self.starting_player_idx = 0 if self.starting_player_idx else 1
+
+        agent.move(action, self.state)
         observation = self.state.board
         reward = agent.gen_reward()
         done = self.state.done[agent.player_idx]
@@ -54,9 +61,9 @@ class BlokusEnv(gym.Env):
         pass
 
 
-
 #testing ground
 env = BlokusEnv()
+# print(env.state.board.reshape(14,14))
 
 check_env(env, warn=True)
 # print(env.action_space)

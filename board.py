@@ -48,7 +48,15 @@ class Agent():
         """
         pass
 
-    def move(self, board):
+    def find_move(self, board):
+        adm_moves = gen_adm_moves(self.full_moves, self.pieces, self.diag, self.edge, board.blocks_coords)
+        # TODO: RL Policy - Current random
+        if adm_moves:
+            return np.random.choice(adm_moves)
+        else:
+            return None
+
+    def move(self, action, board):
         """
         making move on board
         :param board:
@@ -56,11 +64,9 @@ class Agent():
         """
         if board.done[self.player_idx]:
             return None
-        adm_moves = gen_adm_moves(self.full_moves, self.pieces, self.diag, self.edge, board.blocks_coords)
-        # TODO: RL Policy - Current random
-        if adm_moves:
-            move_idx = np.random.choice(adm_moves)
-            move = self.full_moves[move_idx]
+
+        if action:
+            move = self.full_moves[action]
         else:
             board.done[self.player_idx] = True
             self.gen_reward()
@@ -78,7 +84,7 @@ class Agent():
         self.diag = set.union(self.diag, move[5]).difference(self.edge).difference(board.blocks_coords)
 
         # gen reward
-        print(f'{self.player_idx}: {len(adm_moves)}')
+        print(f'{self.player_idx}: {action}')
 
     def gen_reward(self):
         points = 100 # 89 total
@@ -119,8 +125,8 @@ def run_a_game():
             game.display()
             break
         print(f'Move {i}:')
-        p1.move(game)
-        p2.move(game)
+        p1.move(p1.find_move(game), game)
+        p2.move(p2.find_move(game), game)
 
 
 # testing ground
