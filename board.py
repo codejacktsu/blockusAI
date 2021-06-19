@@ -12,13 +12,19 @@ class Board():
     Environment
     """
     def __init__(self, size):
-        self.board = np.zeros((size,size))
+        self.size = size
+        self.board = np.zeros((self.size,self.size))
         self.blocks_coords = set()
         self.done = [False, False]
 
     def display(self):
         board_img = Image.fromarray(self.board)
         board_img.show()
+
+    def reset(self):
+        self.board = np.zeros((self.size,self.size))
+        self.blocks_coords = set()
+        self.done = [False, False]
 
 
 class Agent():
@@ -35,17 +41,36 @@ class Agent():
         self.reward = 0 # 89 total points, special rule +15 for all/ +5 for playing 1x1 last
         self.done = False
 
-    def move(self, board):
-        if board.done[self.player_idx]:
-            return None
+    def gen_best_action(self):
+        """
+        generate best action based on algo
+        :return:
+        """
+        pass
+
+    def find_move(self, board):
         adm_moves = gen_adm_moves(self.full_moves, self.pieces, self.diag, self.edge, board.blocks_coords)
         # TODO: RL Policy - Current random
         if adm_moves:
-            move_idx = np.random.choice(adm_moves)
-            move = self.full_moves[move_idx]
+            return np.random.choice(adm_moves)
+        else:
+            return None
+
+    def move(self, action, board):
+        """
+        making move on board
+        :param board:
+        :return:
+        """
+        if board.done[self.player_idx]:
+            return None
+
+        if action:
+            move = self.full_moves[action]
         else:
             board.done[self.player_idx] = True
-            self.gen_reward()
+            self.done = True
+            # self.gen_reward()
             return None
 
         # remove from available pieces
@@ -60,15 +85,27 @@ class Agent():
         self.diag = set.union(self.diag, move[5]).difference(self.edge).difference(board.blocks_coords)
 
         # gen reward
-        print(f'{self.player_idx}: {len(adm_moves)}')
+        # print(f'{self.player_idx}: {action}')
 
     def gen_reward(self):
-        points = 100 # 89 total
-        for piece in self.pieces:
-            if piece.available:
-                points -= piece.points
+        if self.done:
+            points = 100 # 89 total
+            for piece in self.pieces:
+                if piece.available:
+                    points -= piece.points
+        else:
+            points = 0
         self.reward = points
         return self.reward
+
+    def reset(self):
+        self.diag = {(13,13)} if self.player_idx else {(0,0)}
+        self.edge = set()
+        self.color = 225 if self.player_idx else 100
+        self.reward = 0
+        self.done = False
+        for piece in self.pieces:
+            piece.available = True
 
 
 def run_a_game():
@@ -92,8 +129,8 @@ def run_a_game():
             game.display()
             break
         print(f'Move {i}:')
-        p1.move(game)
-        p2.move(game)
+        p1.move(p1.find_move(game), game)
+        p2.move(p2.find_move(game), game)
 
 
 # testing ground
@@ -101,6 +138,5 @@ def run_a_game():
 # game = Board(14)
 # p1 = Agent(EGO_PIECES, 0)
 # p2 = Agent(VIL_PIECES, 1)
-
 
 # run_a_game()
