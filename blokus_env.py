@@ -28,42 +28,45 @@ class BlokusEnv(gym.Env):
         self.p2 = Agent(VIL_PIECES, 1)
 
         # random who starts
-        self.starting_player_idx = np.random.randint(0, 1)
+        self.cur_player_idx = np.random.randint(0, 1)
 
     def step(self, action):
-        if self.starting_player_idx:
+        if self.cur_player_idx:
             agent = self.p2
         else:
             agent = self.p1
         # other player's turn next
-        self.starting_player_idx = 0 if self.starting_player_idx else 1
+        self.cur_player_idx = 0 if self.cur_player_idx else 1
 
         agent.move(action, self.state)
         observation = self.state.board
         reward = agent.gen_reward()
         done = self.state.done[agent.player_idx]
         info = {}
+        print(f'{self.cur_player_idx}: {action} | Rewards: {reward} {done}')
         return observation, reward, done, info
 
     def reset(self):
         self.state.reset()
         self.p1.reset()
         self.p2.reset()
-        self.starting_player_idx = np.random.randint(0, 1)
+        self.cur_player_idx = np.random.randint(0, 1)
 
         observation = self.state.board
         return observation
 
     def render(self, mode='human'):
-        pass
+        assert mode in ["human"]
+        if mode == "human":
+            self.state.display()
 
     def close(self):
         pass
 
 
 #testing ground
-env = BlokusEnv()
+# env = BlokusEnv()
 # print(env.state.board.reshape(14,14))
 
-check_env(env, warn=True)
+# check_env(env, warn=True)
 # print(env.action_space)

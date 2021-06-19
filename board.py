@@ -69,7 +69,8 @@ class Agent():
             move = self.full_moves[action]
         else:
             board.done[self.player_idx] = True
-            self.gen_reward()
+            self.done = True
+            # self.gen_reward()
             return None
 
         # remove from available pieces
@@ -84,13 +85,16 @@ class Agent():
         self.diag = set.union(self.diag, move[5]).difference(self.edge).difference(board.blocks_coords)
 
         # gen reward
-        print(f'{self.player_idx}: {action}')
+        # print(f'{self.player_idx}: {action}')
 
     def gen_reward(self):
-        points = 100 # 89 total
-        for piece in self.pieces:
-            if piece.available:
-                points -= piece.points
+        if self.done:
+            points = 100 # 89 total
+            for piece in self.pieces:
+                if piece.available:
+                    points -= piece.points
+        else:
+            points = 0
         self.reward = points
         return self.reward
 
